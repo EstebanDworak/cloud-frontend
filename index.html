@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+		<script>
+			function myFunction() {
+				var myHeaders = new Headers();
+
+				myHeaders.append("Content-Type", "application/json");
+
+				fetch("https://cloudbackend-humble-bongo-tf.mybluemix.net", {
+					method: "POST",
+					headers: myHeaders,
+					body: JSON.stringify({
+						text: document.querySelector("#input").value,
+					}),
+					redirect: "follow",
+				})
+					.then((response) => response.text())
+					.then(
+						(result) => (document.querySelector("#result").innerHTML = result)
+					)
+					.catch(
+						(error) => (document.querySelector("#result").innerHTML = error)
+					);
+			}
+		</script>
+	</head>
+	<body>
+		<textarea style="height: 150px; width: 300px" id="input">
+Team, I know that times are tough! Product sales have been disappointing for the past three quarters. We have a competitive product, but we need to do a better job of selling it!</textarea
+		>
+		<br />
+		<button onclick="myFunction()">Analyze tone</button>
+		<br />
+		<textarea
+			style="height: 150px; width: 300px"
+			id="result"
+			disabled
+		></textarea>
+	</body>
+</html>
